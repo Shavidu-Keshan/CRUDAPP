@@ -35,4 +35,24 @@ app.post("/register",async(req,res)=>{
     }catch(err){
         res.send({status:"err"});
     }
-})
+});
+
+//Login function
+
+app.post("/login" ,async(req,res) =>{
+    const {gmail,password} = req.body;
+    try{
+        const user = await User.findOne({gmail});
+        if(!user){
+            return res.json({err:"user Not Found"})
+        }
+        if(user.password === password){
+            return res.json({status: "ok"});
+        }else{
+            return res.json({err: "incorrect Password"});
+        }
+    }catch(err){
+        console.error(err);
+        res.status(500).json({err:"server Error"})
+    }
+});
