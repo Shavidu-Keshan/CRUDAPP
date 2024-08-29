@@ -1,23 +1,20 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const regiSchema = new Schema({
-  name: {
+const pdfSchema = new Schema({
+  pdf: {
     type: String, //dataType
     required: true, //validate
   },
-  gmail: {
+  title: {
     type: String,
     required: true,
   },
 
-  password: {
-    type: String,
-    required: true,
-  },
+  
 });
 
 module.exports = mongoose.model(
-  "Register", //file name
-  regiSchema //function name
+  "PdfDetails", //file name
+  pdfSchema //function name
 );

@@ -11,6 +11,7 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 app.use("/users",router);
+app.use("/files",express.static("files"));
 
 mongoose.connect("mongodb+srv://keshanshavidu:Shavindu2000@shavindu9.1gh7s13.mongodb.net/?retryWrites=true&w=majority&appName=Shavindu9")
 .then(()=> console.log("connected_to_Mongodb"))
@@ -56,3 +57,14 @@ app.post("/login" ,async(req,res) =>{
         res.status(500).json({err:"server Error"})
     }
 });
+//Pdf
+const multer = require("multer");
+const storage = multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null,'./files')
+    },
+    filename: function(req,file,cb){
+        const uniqueSuffix = Data.now()
+        cb(null,uniqueSuffix + file.originalname);
+    },
+})
